@@ -1,4 +1,5 @@
 local Players = game:GetService("Players")
+local fileSystem = loadstring(game:HttpGet('https://raw.githubusercontent.com/lhtesting/LH_core/main/fileSystemUtil.lua'))()
 
 local isLoaded = false
 local placeholderTab
@@ -77,7 +78,7 @@ function mainMenuAPI.newMenu(menuData)
 	local menuID = menuData[1]
 	local menuTitle = menuData[2]
 	local TabColor,BackgroundColor = menuData[3][1],menuData[3][2]
-	local dataFile = menuData[4]
+	local dataFile = fileSystem.loadFile(menuData[4][1],menuData[4][2])
 	----
 	local newTab = helmetUIArea.PlaceholderTab:Clone()
 	newTab.Name = menuID
@@ -89,8 +90,9 @@ function mainMenuAPI.newMenu(menuData)
 	newButton.Name = menuID
 	newButton.Button.Enabled = true
 	newButton.Text = string.upper(menuTitle)
-	newButton.Parent = ButtonsArea
 	newButton.LayoutOrder = -#ButtonsArea:GetChildren()
+	newButton.Parent = ButtonsArea
+	newTab.Parent = helmetUIArea
 	for _,frame in newTab.ScrollingFrame:GetChildren() do if frame:IsA("Frame") then frame:Destroy() end end
 	----
 	local classTab = setmetatable({tab = newTab,button = newButton,file = dataFile},mainMenuAPI)
