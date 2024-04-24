@@ -115,6 +115,7 @@ if game.GameId == 4791585001 then
 			local continueWith = true
 			for _,item in pairs(eventList) do
 				if item.Part == nil or item.Prompt == nil then
+					if item[1] ~= nil and type(item[1]) == "table" then continue end
 					continueWith = false
 					inGameMenuAPI.sendMessage(`{prefix} ERROR: COULDN'T FIND ALL POI LOCATIONS`,Color3.fromRGB(255, 0, 4))
 					break
@@ -136,7 +137,7 @@ if game.GameId == 4791585001 then
 				local lastObjCount = #objUI:WaitForChild("SubObjective"):WaitForChild("List"):GetChildren()
 				
 				for i = 1, #eventList, 1 do
-					if type(eventList[i]) == "table" then
+					if eventList[i].Part == nil or eventList[i].Prompt == nil then
 						for _,tsk in pairs(eventList[i]) do
 							repeat
 								MoveChar(tsk.Part.CFrame)
