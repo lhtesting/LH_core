@@ -1,5 +1,4 @@
 local Players = game:GetService("Players")
-local fileSystem = loadstring(game:HttpGet('https://raw.githubusercontent.com/lhtesting/LH_core/main/fileSystemUtil.lua'))()
 
 local isLoaded = false
 local placeholderTab
@@ -78,7 +77,7 @@ function mainMenuAPI.newMenu(menuData)
 	local menuID = menuData[1]
 	local menuTitle = menuData[2]
 	local TabColor,BackgroundColor = menuData[3][1],menuData[3][2]
-	local dataFile = fileSystem.loadFile(menuData[4][1],menuData[4][2])
+	local dataFile = menuData[4]
 	----
 	local newTab = helmetUIArea.PlaceholderTab:Clone()
 	newTab.Name = menuID
