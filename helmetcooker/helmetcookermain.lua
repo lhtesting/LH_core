@@ -9,6 +9,7 @@ if game.GameId == 4791585001 then
 	if game.PlaceId == 13815196156 then
 		local mainMenuAPI = loadstring(game:HttpGet('https://raw.githubusercontent.com/lhtesting/LH_core/main/helmetcooker/mainMenuAPI.lua'))()
 		HelmetFile:SetData("AF_Enabled",false)
+		local XPGAINED = tonumber(HelmetFile:SetData("AF_XPGAIN","0"))
 		local newTab = mainMenuAPI.newMenu({
 			"LH_CORE_TAB",
 			"Lookin' Hackable",
@@ -66,10 +67,14 @@ if game.GameId == 4791585001 then
 				hrp.CFrame = cframe
 			end
 
-			local preDt = HelmetFile:GetData("AF_tpSpeed","0.3")
-			local delayTime = preDt ~= nil and preDt or 0.3
-			local preLl = HelmetFile:GetOrSetData("AF_levelCap","100")
-			local levelLimit = preLl ~= nil and preLl or 100
+			local preDt = HelmetFile:GetOrSetData("AF_tpSpeed","0.3")
+			local delayTime = preDt
+			local preLl = tonumber(HelmetFile:GetOrSetData("AF_levelCap","100"))
+			local levelLimit = (((preLl*(preLl+1))/2)*500)
+			local LEXP = game:GetService("Players").LocalPlayer.Data.EXP.Value
+			local LLevel = game:GetService("Players").LocalPlayer.Data.Level.Value
+			local lastXPCount = (LEXP) + (((LLevel*(LLevel+1))/2)*500)
+			local XPGAINED = tonumber(HelmetFile:GetOrSetData("AF_XPGAIN","0"))
 			local autoFarm = true
 
 			if autoFarm == true then
@@ -132,12 +137,25 @@ if game.GameId == 4791585001 then
 					inGameMenuAPI.sendMessage(`{prefix} TASK {i}/{#eventList} COMPLETED`,Color3.fromRGB(82, 166, 255))
 				end
 				inGameMenuAPI.sendMessage(`{prefix} COMPLETED`,Color3.fromRGB(82, 166, 255))
-				if plrLvl.Value >= tonumber(levelLimit) then
+				inGameMenuAPI.sendMessage(`{prefix} WAITING FOR SCORE`,Color3.fromRGB(82, 166, 255))
+				task.wait(18)
+				local winframe = game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("MissionComplete")
+				if winframe then
+					for _,entry in winframe.Frame.ScrollingFrame:GetChildren() do
+						if entry:IsA("TextButton") then
+							if string.find(entry.Text,"TOTAL...") then
+								XPGAINED += tonumber(string.split(entry.Text,"TOTAL...")[2])
+								HelmetFile:SetData("AF_XPGAIN",XPGAINED)
+							end
+						end
+					end
+				end
+				if lastXPCount + XPGAINED >= levelLimit then
 					Players.LocalPlayer:Kick("REQUIREMENTS MET; KICKING PLAYER")
 				end
 				if autoFarm == true then
 					inGameMenuAPI.sendMessage(`{prefix} REQUIREMENTS NOT MET; STARTING A NEW MATCH SOON`,Color3.fromRGB(82, 166, 255))
-					task.wait(12)
+					task.wait(2)
 					game:GetService("ReplicatedStorage").Remotes.Teleport.Replay:InvokeServer()
 				end
 			end
