@@ -59,7 +59,7 @@ if isLoaded == false then
 	line.Parent = presetTitle
 	presetDesc.ToggleSwitch:Destroy()
 	presetDesc.Title.Size = UDim2.new(1, 0, 0.5, 0)
-	presetDesc.TextSize = 12
+	presetDesc.Title.TextSize = 12
 	presetLine:ClearAllChildren()
 	local pline = Instance.new("Frame")
 	pline.Size = UDim2.fromScale(1,0.1)
