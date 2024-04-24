@@ -94,12 +94,6 @@ function mainMenuAPI.newMenu(menuData)
 	for _,frame in newTab.ScrollingFrame:GetChildren() do if frame:IsA("Frame") then frame:Destroy() end end
 	----
 	local classTab = setmetatable({tab = newTab,button = newButton,file = dataFile},mainMenuAPI)
-	classTab:Line()
-	classTab:Title()
-	classTab:Description()
-	classTab:ToggleButton()
-	classTab:PushButton()
-	classTab:InputBox()
 	return classTab
 end
 
