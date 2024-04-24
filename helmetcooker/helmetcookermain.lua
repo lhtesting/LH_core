@@ -96,12 +96,15 @@ if game.GameId == 4791585001 then
 					Prompt = workspace.Map.Objectives.Radio.Handle.ProximityPrompt
 				},
 				{
-					Part = workspace.Map.Objectives.Radar.Explosive1.Handle,
-					Prompt = workspace.Map.Objectives.Radar.Explosive1.Handle.ProximityPrompt
-				},
-				{
-					Part = workspace.Map.Objectives.Radar.Explosive2.Handle,
-					Prompt = workspace.Map.Objectives.Radar.Explosive2.Handle.ProximityPrompt
+					{
+						Part = workspace.Map.Objectives.Radar.Explosive1.Handle,
+						Prompt = workspace.Map.Objectives.Radar.Explosive1.Handle.ProximityPrompt
+					},
+					{
+						Part = workspace.Map.Objectives.Radar.Explosive2.Handle,
+						Prompt = workspace.Map.Objectives.Radar.Explosive2.Handle.ProximityPrompt
+					}
+					
 				},
 				{
 					Part = workspace.Map.Objectives.EscapeZone,
@@ -133,14 +136,29 @@ if game.GameId == 4791585001 then
 				local lastObjCount = #objUI:WaitForChild("SubObjective"):WaitForChild("List"):GetChildren()
 				
 				for i = 1, #eventList, 1 do
-					MoveChar(eventList[i].Part.CFrame)
-					task.wait(delayTime)
-					if eventList[i].Prompt ~= false and eventList[i].Prompt ~= nil then
-						repeat
-							fireproximityprompt(eventList[i].Prompt)
-							task.wait()
-						until #objUI:WaitForChild("SubObjective"):WaitForChild("List"):GetChildren() > lastObjCount
-						lastObjCount = #objUI:WaitForChild("SubObjective"):WaitForChild("List"):GetChildren()
+					if type(eventList[i]) == "table" then
+						for _,tsk in pairs(eventList[i]) do
+							repeat
+								MoveChar(tsk.Part.CFrame)
+								task.wait(delayTime)
+								if tsk.Prompt ~= false and tsk.Prompt ~= nil then
+									fireproximityprompt(tsk.Prompt)
+								end
+								task.wait()
+							until #objUI:WaitForChild("SubObjective"):WaitForChild("List"):GetChildren() > lastObjCount
+							lastObjCount = #objUI:WaitForChild("SubObjective"):WaitForChild("List"):GetChildren()
+							task.wait(delayTime)
+						end
+					else
+						MoveChar(eventList[i].Part.CFrame)
+						task.wait(delayTime)
+						if eventList[i].Prompt ~= false and eventList[i].Prompt ~= nil then
+							repeat
+								fireproximityprompt(eventList[i].Prompt)
+								task.wait()
+							until #objUI:WaitForChild("SubObjective"):WaitForChild("List"):GetChildren() > lastObjCount
+							lastObjCount = #objUI:WaitForChild("SubObjective"):WaitForChild("List"):GetChildren()
+						end
 					end
 					task.wait(delayTime)
 					inGameMenuAPI.sendMessage(`{prefix} TASK {i}/{#eventList} COMPLETED`,Color3.fromRGB(82, 166, 255))
