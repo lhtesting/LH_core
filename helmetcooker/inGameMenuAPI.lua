@@ -7,8 +7,8 @@ scrGui.Parent = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 NewCMDPrompt.Position = UDim2.new(0.5,0,0.5,0)
 NewCMDPrompt.Parent = scrGui
-local uil:UIListLayout = NewCMDPrompt.ScrollingFrame.UIListLayout
-uil.VerticalAlignment = Enum.VerticalAlignment.Top
+NewCMDPrompt.ScrollingFrame.UIListLayout.VerticalAlignment = Enum.VerticalAlignment.Top
+NewCMDPrompt.ScrollingFrame.CanvasSize = UDim2.new(0,0,0,0)
 NewCMDPrompt.TopBar.Right.Close.BackgroundTransparency = 0
 NewCMDPrompt.TopBar.Right.Close.Activated:Connect(function()
 	Players.LocalPlayer:Kick("Window Closed | Whatever was happening most likely finished.")
