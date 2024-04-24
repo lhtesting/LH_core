@@ -46,7 +46,7 @@ if game.GameId == 4791585001 then
 		newTab:InputBox("AF_tpSpeed","Teleport Delay","0.3",true,function(text)
 			print("set new max tp-speed too "..text)
 		end)
-		newTab:Description("Highly recommended to keep this at 0.3. Increase based on wifi speed.")
+		newTab:Description("Highly recommended to keep this at 0.3. Increase if you're having problems completing.")
 		newTab:ToggleButton("AF_ziptieNPC","Ziptie NPCs",false,function(newState)
 			print("ziptie civs is now "..newState == true and "true" or "false")
 		end)
@@ -127,11 +127,18 @@ if game.GameId == 4791585001 then
 					game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Briefing"):WaitForChild("CutsceneSkipVote"):FireServer()
 					task.wait(6)
 				end
+				
+				local objUI = game:GetService("Players")["4756464gfg"].PlayerGui.HUD.Objectives
+				local lastObjCount = #objUI.SubObjective.List:GetChildren()
+				
 				for i = 1, #eventList, 1 do
 					MoveChar(eventList[i].Part.CFrame)
 					task.wait(delayTime)
 					if eventList[i].Prompt ~= false and eventList[i].Prompt ~= nil then
-						fireproximityprompt(eventList[i].Prompt)
+						repeat
+							fireproximityprompt(eventList[i].Prompt)
+						until #objUI.SubObjective.List:GetChildren() > lastObjCount
+						lastObjCount = #objUI.SubObjective.List:GetChildren()
 					end
 					task.wait(delayTime)
 					inGameMenuAPI.sendMessage(`{prefix} TASK {i}/{#eventList} COMPLETED`,Color3.fromRGB(82, 166, 255))
