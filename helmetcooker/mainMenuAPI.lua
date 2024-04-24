@@ -90,7 +90,7 @@ function mainMenuAPI.newMenu(menuData)
 	newButton.Button.Enabled = true
 	newButton.Text = string.upper(menuTitle)
 	newButton.Parent = ButtonsArea
-	newButton.UIListLayout = -#ButtonsArea:GetChildren()
+	newButton.LayoutOrder = -#ButtonsArea:GetChildren()
 	for _,frame in newTab.ScrollingFrame:GetChildren() do if frame:IsA("Frame") then frame:Destroy() end end
 	----
 	local classTab = setmetatable({tab = newTab,button = newButton,file = dataFile},mainMenuAPI)
