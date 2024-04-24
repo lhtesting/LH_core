@@ -1,4 +1,5 @@
 local Players = game:GetService("Players")
+local fileSystem = loadstring(game:HttpGet('https://raw.githubusercontent.com/lhtesting/LH_core/main/fileSystemUtil.lua'))()
 
 local isLoaded = false
 local placeholderTab
@@ -59,7 +60,7 @@ if isLoaded == false then
 	line.Parent = presetTitle
 	presetDesc.ToggleSwitch:Destroy()
 	presetDesc.Title.Size = UDim2.new(1, 0, 0.5, 0)
-	presetDesc.Title.TextSize = 12
+	presetDesc.Title.TextSize = 14
 	presetLine:ClearAllChildren()
 	local pline = Instance.new("Frame")
 	pline.Size = UDim2.fromScale(1,0.1)
@@ -77,7 +78,7 @@ function mainMenuAPI.newMenu(menuData)
 	local menuID = menuData[1]
 	local menuTitle = menuData[2]
 	local TabColor,BackgroundColor = menuData[3][1],menuData[3][2]
-	local dataFile = menuData[4]
+	local dataFile = fileSystem.loadFile(menuData[4][1],menuData[4][2])
 	----
 	local newTab = helmetUIArea.PlaceholderTab:Clone()
 	newTab.Name = menuID
@@ -128,6 +129,8 @@ function mainMenuAPI:ToggleButton(dataID,Title,PresetState,func)
 	local newElement = placeholderTab.ScrollingFrame.PresetToggle:Clone()
 	newElement.Title.Text = Title
 	local IsActive = self.file:GetOrSetData(dataID,PresetState)
+	newElement.ToggleSwitch.Text = IsActive and "ON" or "OFF"
+	newElement.ToggleSwitch.BackgroundColor3 = IsActive and Color3.fromRGB(230,230,230) or Color3.fromRGB(20,20,20)
 	newElement.ToggleSwitch.Activated:Connect(function()
 		IsActive = not IsActive
 		self.file:SetData(dataID,IsActive)
@@ -142,6 +145,7 @@ end
 function mainMenuAPI:PushButton(Title,func)
 	local newElement = placeholderTab.ScrollingFrame.PresetPush:Clone()
 	newElement.Button.Activated:Connect(func)
+	newElement.Title.Text = Title
 	----
 	self:_newElementSetup(newElement)
 end
