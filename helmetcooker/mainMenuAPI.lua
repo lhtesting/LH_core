@@ -33,12 +33,16 @@ if isLoaded == false then
 	placeholderTab.Visible = false
 	placeholderTab.Name = "PlaceholderTab"
 	placeholderTab.Parent = helmetUIArea
+	for _,object in placeholderTab.ScrollingFrame:GetChildren() do
+		if object:IsA("UIListLayout") or object:IsA("LocalScript") then continue end
+		object:Destroy()
+	end
 	local generateScript = placeholderTab:FindFirstChildWhichIsA("LocalScript",true);generateScript.Enabled = false
-	local presetToggle = generateScript.BoolValue:Clone();presetToggle.Parent=generateScript.Parent;presetToggle.Name = "PresetToggle";presetToggle.Visible=false;presetToggle.Title=""
-	local presetPush = generateScript.BoolValue:Clone();presetPush.Parent=generateScript.Parent;presetPush.Name = "PresetPush";presetPush.Visible=false;presetPush.Title=""
-	local presetInput = generateScript.NumberValue:Clone();presetInput.Parent=generateScript.Parent;presetInput.Name = "PresetInput";presetInput.Visible=false;presetInput.Title=""
-	local presetTitle = generateScript.BoolValue:Clone();presetTitle.Parent=generateScript.Parent;presetTitle.Name = "PresetTitle";presetTitle.Visible=false;presetTitle.Title=""
-	local presetDesc = generateScript.BoolValue:Clone();presetDesc.Parent=generateScript.Parent;presetDesc.Name = "PresetDesc";presetDesc.Visible=false;presetDesc.Title=""
+	local presetToggle = generateScript.BoolValue:Clone();presetToggle.Parent=generateScript.Parent;presetToggle.Name = "PresetToggle";presetToggle.Visible=false;presetToggle.Title.Text=""
+	local presetPush = generateScript.BoolValue:Clone();presetPush.Parent=generateScript.Parent;presetPush.Name = "PresetPush";presetPush.Visible=false;presetPush.Title.Text=""
+	local presetInput = generateScript.NumberValue:Clone();presetInput.Parent=generateScript.Parent;presetInput.Name = "PresetInput";presetInput.Visible=false;presetInput.Title.Text=""
+	local presetTitle = generateScript.BoolValue:Clone();presetTitle.Parent=generateScript.Parent;presetTitle.Name = "PresetTitle";presetTitle.Visible=false;presetTitle.Title.Text=""
+	local presetDesc = generateScript.BoolValue:Clone();presetDesc.Parent=generateScript.Parent;presetDesc.Name = "PresetDesc";presetDesc.Visible=false;presetDesc.Title.Text=""
 	local presetLine = generateScript.BoolValue:Clone();presetLine.Parent=generateScript.Parent;presetLine.Name = "PresetLine";presetLine.Visible=false
 	generateScript:Destroy()
 	presetPush.ToggleSwitch.Text = "CLICK"
