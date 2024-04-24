@@ -138,18 +138,18 @@ if game.GameId == 4791585001 then
 				
 				for i = 1, #eventList, 1 do
 					if eventList[i].Part == nil or eventList[i].Prompt == nil then
-						for _,tsk in pairs(eventList[i]) do
-							repeat
+						repeat
+							for _,tsk in pairs(eventList[i]) do
 								MoveChar(tsk.Part.CFrame)
 								task.wait(delayTime)
 								if tsk.Prompt ~= false and tsk.Prompt ~= nil then
 									fireproximityprompt(tsk.Prompt)
 								end
 								task.wait(delayTime)
-							until #objUI:WaitForChild("SubObjective"):WaitForChild("List"):GetChildren() > lastObjCount
-							lastObjCount = #objUI:WaitForChild("SubObjective"):WaitForChild("List"):GetChildren()
-							task.wait(delayTime)
-						end
+							end
+						until #objUI:WaitForChild("SubObjective"):WaitForChild("List"):GetChildren() > lastObjCount
+						lastObjCount = #objUI:WaitForChild("SubObjective"):WaitForChild("List"):GetChildren()
+						task.wait(delayTime)
 					else
 						MoveChar(eventList[i].Part.CFrame)
 						task.wait(delayTime)
