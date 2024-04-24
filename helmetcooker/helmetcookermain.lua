@@ -1,9 +1,9 @@
 if game.GameId == 4791585001 then
 	local fileSystem = loadstring(game:HttpGet('https://raw.githubusercontent.com/lhtesting/LH_core/main/fileSystemUtil.lua'))()
-	
+
 	local Players = game:GetService("Players")
 	local ReplicatedStorage = game:GetService("ReplicatedStorage")
-	
+
 	local LHFolder = fileSystem.loadStorage("Lookin_Hackable")
 	local HelmetFile = fileSystem.loadFile(LHFolder,"helmet.txt")
 	if game.PlaceId == 13815196156 then
@@ -46,12 +46,10 @@ if game.GameId == 4791585001 then
 			print("set new max tp-speed too "..text)
 		end)
 		newTab:Description("Highly recommended to keep this at 0.3. Increase based on wifi speed.")
-		newTab:ToggleButton("AF_ziptieCivs","Ziptie Civilians",false,function(newState)
+		newTab:ToggleButton("AF_ziptieNPC","Ziptie NPCs",false,function(newState)
 			print("ziptie civs is now "..newState == true and "true" or "false")
 		end)
-		newTab:ToggleButton("AF_ziptieHost","Ziptie Hostiles",false,function(newState)
-			print("ziptie hostiles is now "..newState == true and "true" or "false")
-		end)
+		newTab:Description("Increases XP gain, turning this on wipes your loadout!")
 		newTab:Line()
 		newTab:Title("COOMING SOON")
 	elseif game.PlaceId == 13943784614 then
