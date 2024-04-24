@@ -45,7 +45,7 @@ if game.GameId == 4791585001 then
 		newTab:InputBox("AF_tpSpeed","Teleport Delay","0.3",true,function(text)
 			print("set new max tp-speed too "..text)
 		end)
-		newTab:Description("Highly recommended to keep this at 0.3, lower numbers can break it. Increase based on wifi speed.")
+		newTab:Description("Highly recommended to keep this at 0.3. Increase based on wifi speed.")
 		newTab:ToggleButton("AF_ziptieCivs","Ziptie Civilians",false,function(newState)
 			print("ziptie civs is now "..newState == true and "true" or "false")
 		end)
