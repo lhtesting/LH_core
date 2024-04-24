@@ -38,6 +38,7 @@ local bread = myFile:GetOrSetData("Bread",5)
 print(bread)
 
 ]]--
+
 local HttpService = game:GetService("HttpService")
 local fileSystemUtil = {}
 fileSystemUtil.__index = fileSystemUtil
@@ -65,7 +66,8 @@ function fileSystemUtil.loadFile(path,fileName)
 	warn("Couldn't find File; Creating new File with the name: "..fileName)
 	writefile(`{path}/{fileName}`,HttpService:JSONEncode({}))
 	foundFile = `{path}/{fileName}`
-	return setmetatable({path = foundFile},fileSystemUtil)
+	local fileMeta = setmetatable({path = foundFile},fileSystemUtil)
+	return fileMeta
 end
 function fileSystemUtil:SetData(id,data)
 	local loadedData = HttpService:JSONDecode(readfile(self.path))
