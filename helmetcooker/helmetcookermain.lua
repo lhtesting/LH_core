@@ -129,8 +129,8 @@ if game.GameId == 4791585001 then
 					task.wait(6)
 				end
 				
-				local objUI = game:GetService("Players")["4756464gfg"].PlayerGui.HUD.Objectives
-				local lastObjCount = #objUI.SubObjective.List:GetChildren()
+				local objUI = Players.LocalPlayer.PlayerGui.HUD.Objectives
+				local lastObjCount = #objUI:WaitForChild("SubObjective"):WaitForChild("List"):GetChildren()
 				
 				for i = 1, #eventList, 1 do
 					MoveChar(eventList[i].Part.CFrame)
@@ -138,8 +138,8 @@ if game.GameId == 4791585001 then
 					if eventList[i].Prompt ~= false and eventList[i].Prompt ~= nil then
 						repeat
 							fireproximityprompt(eventList[i].Prompt)
-						until #objUI.SubObjective.List:GetChildren() > lastObjCount
-						lastObjCount = #objUI.SubObjective.List:GetChildren()
+						until #objUI:WaitForChild("SubObjective"):WaitForChild("List"):GetChildren() > lastObjCount
+						lastObjCount = #objUI:WaitForChild("SubObjective"):WaitForChild("List"):GetChildren()
 					end
 					task.wait(delayTime)
 					inGameMenuAPI.sendMessage(`{prefix} TASK {i}/{#eventList} COMPLETED`,Color3.fromRGB(82, 166, 255))
