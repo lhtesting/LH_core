@@ -70,6 +70,7 @@ if game.GameId == 4791585001 then
 			local preDt = HelmetFile:GetOrSetData("AF_tpSpeed","0.3")
 			local delayTime = preDt
 			local preLl = tonumber(HelmetFile:GetOrSetData("AF_levelCap","100"))
+			preLl = preLl > 1 and preLl - 1 or 1
 			local levelLimit = (((preLl*(preLl+1))/2)*500)
 			local LEXP = game:GetService("Players").LocalPlayer.Data.EXP.Value
 			local LLevel = game:GetService("Players").LocalPlayer.Data.Level.Value
