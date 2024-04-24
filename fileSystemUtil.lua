@@ -46,8 +46,8 @@ function fileSystemUtil.loadStorage(folderName,path)
 	local foundFolder = nil
 	for _,folder in pairs(listfiles(path and path or "")) do
 		if folder == folderName then
-			foundFolder  = folder
-			break
+			foundFolder = folder
+			return foundFolder
 		end
 	end
 	warn("Couldn't find Folder; Creating new folder with the name: "..folderName)
@@ -59,8 +59,9 @@ function fileSystemUtil.loadFile(path,fileName)
 	local foundFile = nil
 	for _,file in pairs(listfiles(path)) do
 		if string.find(file,fileName) then
-			foundFile  = file
-			return foundFile
+			foundFile = file
+			local fileMeta = setmetatable({path = foundFile},fileSystemUtil)
+			return fileMeta
 		end
 	end
 	warn("Couldn't find File; Creating new File with the name: "..fileName)
