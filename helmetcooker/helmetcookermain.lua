@@ -9,7 +9,7 @@ if game.GameId == 4791585001 then
 	if game.PlaceId == 13815196156 then
 		local mainMenuAPI = loadstring(game:HttpGet('https://raw.githubusercontent.com/lhtesting/LH_core/main/helmetcooker/mainMenuAPI.lua'))()
 		HelmetFile:SetData("AF_Enabled",false)
-		local XPGAINED = tonumber(HelmetFile:GetOrSetData("AF_XPGAIN","0"))
+		HelmetFile:SetData("AF_XPGAIN","0")
 		local newTab = mainMenuAPI.newMenu({
 			"LH_CORE_TAB",
 			"Lookin' Hackable",
@@ -145,7 +145,7 @@ if game.GameId == 4791585001 then
 						if entry:IsA("TextButton") then
 							if string.find(entry.Text,"TOTAL...") then
 								XPGAINED += tonumber(string.split(entry.Text,"TOTAL...")[2])
-								HelmetFile:SetData("AF_XPGAIN",XPGAINED)
+								HelmetFile:SetData("AF_XPGAIN",tostring(XPGAINED))
 							end
 						end
 					end
