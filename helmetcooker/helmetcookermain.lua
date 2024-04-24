@@ -145,7 +145,7 @@ if game.GameId == 4791585001 then
 								if tsk.Prompt ~= false and tsk.Prompt ~= nil then
 									fireproximityprompt(tsk.Prompt)
 								end
-								task.wait()
+								task.wait(delayTime)
 							until #objUI:WaitForChild("SubObjective"):WaitForChild("List"):GetChildren() > lastObjCount
 							lastObjCount = #objUI:WaitForChild("SubObjective"):WaitForChild("List"):GetChildren()
 							task.wait(delayTime)
