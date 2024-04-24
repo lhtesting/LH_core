@@ -7,19 +7,24 @@ scrGui.Parent = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 NewCMDPrompt.Position = UDim2.new(0.5,0,0.5,0)
 NewCMDPrompt.Parent = scrGui
-game:GetService("ReplicatedStorage").UI.EasterEgg.Frame.TopBar.Right.Close.BackgroundTransparency = 0
-game:GetService("ReplicatedStorage").UI.EasterEgg.Frame.TopBar.Right.Close.Activated:Connect(function()
+local uil:UIListLayout = NewCMDPrompt.ScrollingFrame.UIListLayout
+uil.VerticalAlignment = Enum.VerticalAlignment.Top
+NewCMDPrompt.TopBar.Right.Close.BackgroundTransparency = 0
+NewCMDPrompt.TopBar.Right.Close.Activated:Connect(function()
 	Players.LocalPlayer:Kick("Window Closed | Whatever was happening most likely finished.")
 end)
 local inGameMenuAPI = {}
 
 function inGameMenuAPI.sendMessage(text,color)
 	NewCMDPrompt.ScrollingFrame.CanvasPosition = Vector2.new(0, NewCMDPrompt.ScrollingFrame.AbsoluteCanvasSize.Y)
-	local newMsg:TextButton = psMsg:Clone()
+	local newMsg = psMsg:Clone()
 	newMsg.Text = text
 	newMsg.TextColor3 = color
+	newMsg.TextTransparency = 0
+	newMsg.LayoutOrder = #NewCMDPrompt.ScrollingFrame:GetChildren() + 1
 	newMsg.Visible = true
 	newMsg.Parent = NewCMDPrompt.ScrollingFrame
 end
+inGameMenuAPI.sendMessage("INFO: Click the Close button in the top right to stop the game",Color3.new(1,1,1))
 
 return inGameMenuAPI
