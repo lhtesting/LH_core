@@ -85,18 +85,6 @@ if game.GameId == 4791585001 then
 					Prompt = workspace.Map.Geometry.CameraRoom.KeycardSpawns.Keycard.Base.GrabPrompt
 				},
 				{
-					Part = workspace.Map.Objectives.KeycardDoor.Hitbox,
-					Prompt = workspace.Map.Objectives.KeycardDoor.Hitbox.KeycardPrompt.ProximityPrompt
-				},
-				{
-					Part = workspace.Map.Objectives.KeycardDoor.Hitbox,
-					Prompt = workspace.Map.Objectives.KeycardDoor.DoorVisual.Main.OpenPrompt.ProximityPrompt
-				},
-				{
-					Part = workspace.Map.Objectives.KeycardDoor.Hitbox,
-					Prompt = workspace.Map.Objectives.KeycardDoor.DoorVisual.Main.OpenPrompt.ProximityPrompt
-				},
-				{
 					Part = workspace.Map.Objectives.ControlLever.Handle,
 					Prompt = workspace.Map.Objectives.ControlLever.Handle.ProximityPrompt
 				},
@@ -147,7 +135,7 @@ if game.GameId == 4791585001 then
 					inGameMenuAPI.sendMessage(`{prefix} TASK {i}/{#eventList} COMPLETED`,Color3.fromRGB(82, 166, 255))
 				end
 				inGameMenuAPI.sendMessage(`{prefix} COMPLETED`,Color3.fromRGB(82, 166, 255))
-				if plrLvl.Value >= levelLimit then
+				if plrLvl.Value >= tonumber(levelLimit) then
 					Players.LocalPlayer:Kick("REQUIREMENTS MET; KICKING PLAYER")
 				end
 				if autoFarm == true then
