@@ -138,6 +138,7 @@ if game.GameId == 4791585001 then
 					if eventList[i].Prompt ~= false and eventList[i].Prompt ~= nil then
 						repeat
 							fireproximityprompt(eventList[i].Prompt)
+							task.wait()
 						until #objUI:WaitForChild("SubObjective"):WaitForChild("List"):GetChildren() > lastObjCount
 						lastObjCount = #objUI:WaitForChild("SubObjective"):WaitForChild("List"):GetChildren()
 					end
