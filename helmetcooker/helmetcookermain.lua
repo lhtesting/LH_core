@@ -1,11 +1,10 @@
-local fileSystem = loadstring(game:HttpGet('https://raw.githubusercontent.com/lhtesting/LH_core/main/fileSystemUtil.lua'))()
-
-local Players = game:GetService("Players")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-
-local LHFolder = fileSystem.loadStorage("Lookin_Hackable")
-
 if game.GameId == 4791585001 then
+	local fileSystem = loadstring(game:HttpGet('https://raw.githubusercontent.com/lhtesting/LH_core/main/fileSystemUtil.lua'))()
+	
+	local Players = game:GetService("Players")
+	local ReplicatedStorage = game:GetService("ReplicatedStorage")
+	
+	local LHFolder = fileSystem.loadStorage("Lookin_Hackable")
 	local HelmetFile = fileSystem.loadFile(LHFolder,"helmet.txt")
 	if game.PlaceId == 13815196156 then
 		local mainMenuAPI = loadstring(game:HttpGet('https://raw.githubusercontent.com/lhtesting/LH_core/main/helmetcooker/mainMenuAPI.lua'))()
