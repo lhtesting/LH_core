@@ -33,7 +33,7 @@ if isLoaded == false then
 	placeholderTab.Visible = false
 	placeholderTab.Name = "PlaceholderTab"
 	placeholderTab.Parent = helmetUIArea
-	local generateScript = placeholderTab:FindFirstChildWhichIsA("LocalScript",true)
+	local generateScript = placeholderTab:FindFirstChildWhichIsA("LocalScript",true);generateScript.Enabled = false
 	local presetToggle = generateScript.BoolValue:Clone();presetToggle.Parent=generateScript.Parent;presetToggle.Name = "PresetToggle";presetToggle.Visible=false;presetToggle.Title=""
 	local presetPush = generateScript.BoolValue:Clone();presetPush.Parent=generateScript.Parent;presetPush.Name = "PresetPush";presetPush.Visible=false;presetPush.Title=""
 	local presetInput = generateScript.NumberValue:Clone();presetInput.Parent=generateScript.Parent;presetInput.Name = "PresetInput";presetInput.Visible=false;presetInput.Title=""
