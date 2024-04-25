@@ -1,3 +1,5 @@
+local inGameMenuAPI = {}
+
 local NewCMDPrompt = game:GetService("ReplicatedStorage"):WaitForChild("UI"):WaitForChild("EasterEgg"):WaitForChild("Frame"):Clone()
 local psMsg = game:GetService("ReplicatedStorage").UI.EasterEgg:WaitForChild("Handler"):WaitForChild("Template"):Clone()
 psMsg.Underdash:Destroy()
@@ -11,9 +13,9 @@ NewCMDPrompt.ScrollingFrame.UIListLayout.VerticalAlignment = Enum.VerticalAlignm
 NewCMDPrompt.ScrollingFrame.CanvasSize = UDim2.new(0,0,0,0)
 NewCMDPrompt.TopBar.Right.Close.BackgroundTransparency = 0
 NewCMDPrompt.TopBar.Right.Close.Activated:Connect(function()
-	Players.LocalPlayer:Kick("Window Closed | Whatever was happening most likely finished.")
+	inGameMenuAPI.sendMessage("CLOSED: RETURNING TO MENU",Color3.new(1,1,0))
+	game:GetService("ReplicatedStorage").Remotes.Teleport.Return:InvokeServer()
 end)
-local inGameMenuAPI = {}
 
 function inGameMenuAPI.sendMessage(text,color)
 	NewCMDPrompt.ScrollingFrame.CanvasPosition = Vector2.new(0, NewCMDPrompt.ScrollingFrame.AbsoluteCanvasSize.Y)
