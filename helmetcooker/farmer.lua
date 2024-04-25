@@ -102,7 +102,7 @@ return function (HelmetFile)
 		until chrLoad == true
 	end
 
-	local objUI = Players.LocalPlayer.PlayerGui.HUD.Objectives
+	local objUI = Players.LocalPlayer.PlayerGui:WaitForChild("HUD"):WaitForChild("Objectives")
 	local lastObjCount = #objUI:WaitForChild("SubObjective"):WaitForChild("List"):GetChildren()
 
 	for i = 1, #eventList, 1 do
