@@ -123,6 +123,7 @@ return function (HelmetFile)
 	
 
 	if AF_ziptieNPC == true then
+		inGameMenuAPI.sendMessage(`{prefix} STARTING ZIPTIES`,Color3.fromRGB(82, 166, 255))
 		local vectorList = {
 			Vector3.new(-36, -29, -86),
 			Vector3.new(-37, -33, -126),
@@ -178,9 +179,9 @@ return function (HelmetFile)
 						civHostList[npc] = nil
 					end
 				end
-				table.sort(civHostList)
 			end
 		end
+		inGameMenuAPI.sendMessage(`{prefix} ZIPTIES COMPLETED`,Color3.fromRGB(82, 166, 255))
 	end
 	
 	for i = 1, #eventList, 1 do
