@@ -25,6 +25,7 @@ return function (HelmetFile)
 	local LLevel = Players.LocalPlayer.Data.Level.Value
 	local lastXPCount = (LEXP) + (((LLevel*(LLevel+1))/2)*500)
 	local XPGAINED = tonumber(HelmetFile:GetOrSetData("AF_XPGAIN","0"))
+	local AF_ziptieNPC = HelmetFile:GetOrSetData("AF_ziptieNPC",false)
 	local autoFarm = true
 	inGameMenuAPI.sendMessage(`{prefix} LOADED, CHECKING...`,Color3.fromRGB(82, 166, 255))
 	local eventList = {
@@ -83,6 +84,20 @@ return function (HelmetFile)
 	inGameMenuAPI.sendMessage(`{prefix} ALL POI LOCATIONS LOADED`,Color3.fromRGB(82, 166, 255))
 	inGameMenuAPI.sendMessage(`{prefix} STARTING`,Color3.fromRGB(82, 166, 255))
 	if not Players.LocalPlayer.Character or not Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+		if AF_ziptieNPC == true then
+			inGameMenuAPI.sendMessage(`{prefix} REPLACING LOADOUT`,Color3.fromRGB(82, 166, 255))
+			local agrm = game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Briefing"):WaitForChild("AddGear")
+			local rgrm = game:GetService("ReplicatedStorage").Remotes.Briefing.RemoveGear
+			local cwrm = game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Briefing"):WaitForChild("ChangeWeapon")
+			for _,item in gearfolder:GetChildren() do
+				rgrm:FireServer(item.Name)
+			end
+			cwrm:FireServer("Rifle","Primary")
+			cwrm:FireServer("Pistol","Secondary")
+			for i=1,10,1 do
+				agrm:FireServer("Zipties")
+			end
+		end
 		inGameMenuAPI.sendMessage(`{prefix} NOT SPAWNED; READYING UP`,Color3.fromRGB(82, 166, 255))
 		repeat
 			ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("Briefing"):WaitForChild("SetReady"):FireServer()
@@ -104,7 +119,69 @@ return function (HelmetFile)
 
 	local objUI = Players.LocalPlayer.PlayerGui:WaitForChild("HUD"):WaitForChild("Objectives")
 	local lastObjCount = #objUI:WaitForChild("SubObjective"):WaitForChild("List"):GetChildren()
+	
 
+	if AF_ziptieNPC == true then
+		local vectorList = {
+			Vector3.new(-36, -29, -86),
+			Vector3.new(-37, -33, -126),
+			Vector3.new(19, -29, -86),
+			Vector3.new(16, -33, -126),
+			Vector3.new(17, -33, -127),
+			Vector3.new(-37, -33, -127),
+			Vector3.new(18, -33, -171),
+			Vector3.new(-36, -33, -170),
+			Vector3.new(11, -7, -41),
+			Vector3.new(12, -7, -72),
+			Vector3.new(-32, -7, -41),
+			Vector3.new(-30, -7, -71),
+			Vector3.new(-45, -4, 12),
+			Vector3.new(-85, -4, -19),
+			Vector3.new(-85, -4, -530),
+			Vector3.new(-68, -3, -106),
+			Vector3.new(-68, -3, -121),
+			Vector3.new(-72, -3, -192),
+			Vector3.new(-102, -4, -192),
+			Vector3.new(-68, -3, -152),
+			Vector3.new(-87, -4, -157),
+			Vector3.new(-63, 41, -219),
+			Vector3.new(-38, 41, -222),
+			Vector3.new(-61, 41, -253),
+			Vector3.new(-82, 41, -254),
+			Vector3.new(-41, 21, -279),
+			Vector3.new(-16, 21, -271),
+			Vector3.new(-75, 33, -121),
+			Vector3.new(-27, 33, -116),
+			Vector3.new(-23, 33, -94),
+			Vector3.new(-85, 33, -98)
+		}
+		for _,vector in pairs(vectorList) do
+			MoveChar(CFrame.new(vector))
+			task.wait(delayTime)
+		end
+		local civHostList = {}
+		for _,npc in workspace:GetChildren() do
+			if npc.Name == "Civilian" or npc.Name == "Hostile" then
+				table.insert(civHostList,npc)
+			end
+		end
+		MoveChar(workspace.Map.Objectives.EscapeZone.CFrame)
+		task.wait(delayTime)
+		for _,ziptieFound in Players.LocalPlayer.MyData.Gear:GetChildren() do
+			if ziptieFound.Name == "Zipties" then
+				ReplicatedStorage.Remotes.Gameplay.Inventory.EquipItem:FireServer("Zipties")
+				local ziprqrm = Players.LocalPlayer.Character:WaitForChild("Zipties",5):WaitForChild("Use",5)
+				for i=1,6,1 do
+					for _,npc in pairs(civHostList) do
+						ziprqrm:FireServer(npc)
+						civHostList[npc] = nil
+					end
+				end
+				table.sort(civHostList)
+			end
+		end
+	end
+	
 	for i = 1, #eventList, 1 do
 		if eventList[i].Part == nil or eventList[i].Prompt == nil then
 			repeat
