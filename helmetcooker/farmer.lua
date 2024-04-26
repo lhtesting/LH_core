@@ -89,6 +89,7 @@ return function (HelmetFile)
 			local agrm = game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Briefing"):WaitForChild("AddGear")
 			local rgrm = game:GetService("ReplicatedStorage").Remotes.Briefing.RemoveGear
 			local cwrm = game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Briefing"):WaitForChild("ChangeWeapon")
+			local gearfolder = Players.LocalPlayer.MyData.Gear
 			for _,item in gearfolder:GetChildren() do
 				rgrm:FireServer(item.Name)
 			end
