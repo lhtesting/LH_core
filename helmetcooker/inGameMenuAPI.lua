@@ -27,6 +27,17 @@ function inGameMenuAPI.sendMessage(text,color)
 	newMsg.Visible = true
 	newMsg.Parent = NewCMDPrompt.ScrollingFrame
 end
+function inGameMenuAPI.sendEditableMessage(text,color)
+	NewCMDPrompt.ScrollingFrame.CanvasPosition = Vector2.new(0, NewCMDPrompt.ScrollingFrame.AbsoluteCanvasSize.Y)
+	local newMsg = psMsg:Clone()
+	newMsg.Text = text
+	newMsg.TextColor3 = color
+	newMsg.TextTransparency = 0
+	newMsg.LayoutOrder = #NewCMDPrompt.ScrollingFrame:GetChildren() + 1
+	newMsg.Visible = true
+	newMsg.Parent = NewCMDPrompt.ScrollingFrame
+	return newMsg
+end
 inGameMenuAPI.sendMessage("INFO: Click the Close button in the top right to stop the game",Color3.new(1,1,1))
 
 return inGameMenuAPI
