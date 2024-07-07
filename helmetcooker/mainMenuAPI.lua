@@ -77,7 +77,6 @@ function mainMenuAPI.newMenu(menuData)
 	local menuID = menuData[1]
 	local menuTitle = menuData[2]
 	local TabColor,BackgroundColor = menuData[3][1],menuData[3][2]
-	local dataFile = menuData[4]
 	----
 	local newTab = helmetUIArea.PlaceholderTab:Clone()
 	newTab.Name = menuID
@@ -94,7 +93,7 @@ function mainMenuAPI.newMenu(menuData)
 	for _,frame in newTab.ScrollingFrame:GetChildren() do if frame:IsA("Frame") then frame:Destroy() end end
 	----
 	newButton.Button.Enabled = true
-	local classTab = setmetatable({tab = newTab,button = newButton,file = dataFile},mainMenuAPI)
+	local classTab = setmetatable({tab = newTab,button = newButton},mainMenuAPI)
 	return classTab
 end
 
@@ -127,12 +126,11 @@ end
 function mainMenuAPI:ToggleButton(dataID,Title,PresetState,func)
 	local newElement = placeholderTab.ScrollingFrame.PresetToggle:Clone()
 	newElement.Title.Text = Title
-	local IsActive = self.file:GetOrSetData(dataID,PresetState)
+	local IsActive = false
 	newElement.ToggleSwitch.Text = IsActive and "ON" or "OFF"
 	newElement.ToggleSwitch.BackgroundColor3 = IsActive and Color3.fromRGB(230,230,230) or Color3.fromRGB(20,20,20)
 	newElement.ToggleSwitch.Activated:Connect(function()
 		IsActive = not IsActive
-		self.file:SetData(dataID,IsActive)
 		newElement.ToggleSwitch.Text = IsActive and "ON" or "OFF"
 		newElement.ToggleSwitch.BackgroundColor3 = IsActive and Color3.fromRGB(230,230,230) or Color3.fromRGB(20,20,20)
 		func(IsActive)
@@ -153,13 +151,12 @@ function mainMenuAPI:InputBox(dataID,Title,PresetState,numberOnly,func)
 	local newElement = placeholderTab.ScrollingFrame.PresetInput:Clone()
 	newElement.Title.Text = Title
 	newElement.TextBox.PlaceholderText = PresetState
-	local Data = self.file:GetOrSetData(dataID,PresetState)
+	local Data = ""
 	newElement.TextBox.Text = Data == PresetState and "" or Data
 	newElement.TextBox.FocusLost:Connect(function()
 		if numberOnly == true and tonumber(newElement.TextBox.Text) == nil then
 			newElement.TextBox.Text = PresetState
 		end
-		self.file:SetData(dataID,newElement.TextBox.Text)
 		func(newElement.TextBox.Text)
 	end)
 	----
